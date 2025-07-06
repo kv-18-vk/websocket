@@ -8,6 +8,10 @@ server.on('connection', user => {
 
   user.on('close',()=>{
     console.log("player disconnected");
+
+    if(waitingPlayer == user){
+      waitingPlayer = null;
+    }
   })
 
   if(!waitingPlayer){
@@ -24,6 +28,5 @@ server.on('connection', user => {
   }
 
 });
-
 
 
