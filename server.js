@@ -27,7 +27,14 @@ server.on('connection', user => {
 
     [player1,player2].forEach(player=>{
       player.on('message',(msg)=>{
-        player.opponent.send(msg);
+        try {
+          const parsed = JSON.parse(msg);
+          if (player.opponent && player.opponent.readyState === WebSocket.OPEN) {
+            player.opponent.send(JSON.stringify(parsed)); // ← Ensure it's always sent as string
+          }
+        } catch (e) {
+          console.error("Failed to parse incoming message:", msg);
+        }
       })
     })
     
