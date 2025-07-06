@@ -22,6 +22,9 @@ wss.on('connection', user => {
     if (waitingPlayer === user) {
       waitingPlayer = null;
     }
+    if (user.opponent && user.opponent.readyState === WebSocket.OPEN){
+      user.opponent.send(JSON.stringify({type:"opponent_quit"}));
+    }
   });
 
   if (!waitingPlayer || waitingPlayer.readyState !== WebSocket.OPEN) {
