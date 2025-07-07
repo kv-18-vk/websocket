@@ -15,10 +15,8 @@ const wss = new WebSocket.Server({ server });
 let waitingPlayer = null;
 
 wss.on('connection', user => {
-  console.log("A player connected.");
 
   user.on('close', () => {
-    console.log("Player disconnected");
     if (waitingPlayer === user) {
       waitingPlayer = null;
     }
