@@ -3,12 +3,6 @@ const http = require('http');
 const WebSocket = require('ws');
 
 const app = express();
-
-// Optional: handle root ping so Render knows the service is alive
-app.get('/', (req, res) => {
-  res.send("WebSocket server is running!");
-});
-
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
@@ -54,12 +48,3 @@ wss.on('connection', user => {
     });
   }
 });
-
-
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
-});
-
-
-
